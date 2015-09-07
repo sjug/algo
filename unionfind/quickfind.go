@@ -1,5 +1,7 @@
 package unionfind
 
+import "fmt"
+
 type quickFind struct {
 	id []int
 }
@@ -16,19 +18,19 @@ func NewQuickFind(n int) *quickFind {
 
 // find is not necessary to have in its own function, just for sake of comparison and learning
 // find is quick as it only accesses the []id slice once for each call
-func (qf *quickFind) find(i int) int {
+func (qf *quickFind) Find(i int) int {
 	return qf.id[i]
 }
 
 // connected returns true if the two []id values are in the same component, as they have the same value
 // connected uses two array accesses for each call (one for each find)
-func (qf *quickFind) connected(p, q int) bool {
-	return qf.find(p) == qf.find(q)
+func (qf *quickFind) Connected(p, q int) bool {
+	return qf.Find(p) == qf.Find(q)
 }
 
 // union sets the id-value of one component to that of another to join the two components
 // union needs to scan through the whole array for each call which causes issues with a large number of components
-func (qf *quickFind) union(p, q int) {
+func (qf *quickFind) Union(p, q int) {
 	pid := qf.id[p]
 	qid := qf.id[q]
 	if pid != qid {
@@ -38,4 +40,8 @@ func (qf *quickFind) union(p, q int) {
 			}
 		}
 	}
+}
+
+func (qf *quickFind) PrintIds() {
+	fmt.Printf("%v\n", qf.id)
 }
